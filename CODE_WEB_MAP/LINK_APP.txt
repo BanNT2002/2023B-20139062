@@ -1,0 +1,49 @@
+Bước đầu pv:
+
+1) Gọi điện có thể hỏi :
+	Chuẩn bị: giới thiệu bản thân 
+		  Kinh nghiệm 
+
+2) INTERVIEW ROUND:
+	HR ROUND:
+		*tell me about yourself?
+		*What are your strengths?
+		*What are your weaknesses?
+		*What are short/long term goals?
+
+	
+	TECHNICAL ROUND:
+		*what is use of volatile keyword?
+			answer:	Từ khóa volatile được sử dụng để khai báo rằng giá trị của một biến có thể thay đổi bất ngờ bởi các yếu tố bên ngoài như phần 				cứng hoặc các luồng khác. Do đó, trình biên dịch sẽ không tối ưu hóa các truy cập đến biến này, tức là luôn đọc giá trị từ bộ 				nhớ mỗi khi cần truy cập.
+		*pointer/function pointer?
+			answer:	-Con trỏ là một biến lưu trữ địa chỉ của một biến khác. Nó cho phép truy cập và thao tác trực tiếp với bộ nhớ.
+				-Con trỏ hàm là một con trỏ trỏ đến một hàm. Nó cho phép gọi hàm thông qua địa chỉ của nó.	
+		*Macro function/ Inline function?
+		       answer:-Macro hàm là các định nghĩa dùng #define, chúng được thay thế trực tiếp vào mã nguồn tại thời điểm tiền xử lý (preprocessing)
+				-Hàm nội tuyến (inline function) là các hàm được khai báo với từ khóa inline. Trình biên dịch có thể chèn mã của hàm vào nơi 				nó được gọi thay vì gọi hàm thực sự, giúp giảm chi phí gọi hàm.
+		*const keyword/ static keyword?
+			answer: -const: Khai báo biến không thể bị thay đổi giá trị sau khi khởi tạo.
+				-static: Có nhiều nghĩa khác nhau tùy ngữ cảnh:
+
+						Đối với biến toàn cục: chỉ biến có phạm vi sử dụng trong file khai báo.
+						Đối với biến cục bộ: giữ giá trị của biến qua các lần gọi hàm.
+						Đối với hàm: phạm vi của hàm chỉ trong file khai báo.
+		*pass by value/ pass by reference?
+			answer:-Truyền tham trị: Truyền giá trị của biến vào hàm, tạo một bản sao. Mọi thay đổi chỉ áp dụng trên bản sao, không ảnh hưởng 						đến biến gốc.
+				-Truyền tham chiếu: Truyền địa chỉ của biến vào hàm. Thay đổi trên biến trong hàm sẽ ảnh hưởng trực tiếp đến biến gốc.
+		*Dynamic memory allocation ?		
+			answer:Cấp phát bộ nhớ động cho phép cấp phát bộ nhớ tại thời điểm chạy chương trình. Thường sử dụng các hàm malloc, calloc, realloc 				và free.
+	
+	ALGORITHM:
+		* SOFT ALGORITHM
+		* SEARCH ALGORITHM
+		* RECURSION
+		* BINARY TREE
+
+	EMBEDDED SYSTEMS:
+		* What is a Embedded Systems?
+		* UART/ SPI/I2C/CAN Protocol
+		* What is the Stack/Heap/Bss,...?
+		* Interrupt/ Timer/ RTOS?
+		* Hardware / peripheral
+		Able to read documents and communicate in English

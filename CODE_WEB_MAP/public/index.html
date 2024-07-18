@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BLE-POSITION</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/ae360af17e.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/login.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div id="login-form" class="d-flex justify-content-center align-items-center vh-100">
+      <form id="login" class="p-4 border rounded" style="background-color: #333;">
+        <h3 class="text-white mb-3">Login</h3>
+        <div class="mb-3">
+          <label for="username" class="form-label text-white">Username</label>
+          <input type="text" id="username" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label text-white">Password</label>
+          <input type="password" id="password" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+    </div> 
+    <div id="main-content" style="display: none;"> 
+      <div class="wrapper">
+        <aside id="sidebar" class="js-sidebar">
+          <!-- Content For Sidebar -->
+          <div class="h-100">
+            <div class="sidebar-logo">
+              <a href="#">BLE INDOOR POSITONING</a>
+            </div>
+            <ul class="sidebar-nav">
+              <li class="sidebar-header">Map Position</li>
+              <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                  <i class="fa-solid fa-table-columns"></i>
+                  Dashboard
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#"
+                  class="sidebar-link collapsed"
+                  data-bs-target="#the"
+                  data-bs-toggle="collapse"
+                  aria-expanded="false"
+                  ><i class="fa-solid fa-file-lines pe-2"></i>
+                  Create Beacon
+                </a>
+                <ul
+                  id="the"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <form id="my-form">
+                      <div>
+                        <label for="px-input">PX:</label>
+                        <input type="number"
+                        id="px-input"
+                        step="any" />
+                      </div>
+                      <div>
+                        <label for="py-input">PY:</label>
+                        <input type="number"
+                        id="py-input"
+                        step="any" />
+                      </div>
+                      <button type="submit">Create</button>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#"
+                  class="sidebar-link collapsed"
+                  data-bs-target="#pages"
+                  data-bs-toggle="collapse"
+                  aria-expanded="false"
+                  ><i class="fa-solid fa-align-justify"></i>
+                  Create Beacon From Beacon
+                </a>
+                <ul
+                  id="pages"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <form id="beacon-form">
+                      <div>
+                        <label for="beacon-name">iBeacon Name:</label>
+                        <input
+                          type="text"
+                          id="beacon-name"
+                        />
+                      </div>
+                      <div>
+                        <label for="distance">The length between the two Beacon:</label>
+                        <input
+                          type="number"
+                          id="distance"
+                          step="any"
+                        />
+                      </div>
+                      <div>
+                        <label for="axis">Axis:</label>
+                        <select id="axis" required>
+                          <option value="x">X</option>
+                          <option value="y">Y</option>
+                        </select>
+                      </div>
+                      <div>
+                        <button type="submit" style="border-radius: 5px">
+                          Create 
+                        </button>
+                      </div>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#"
+                  class="sidebar-link collapsed"
+                  data-bs-target="#multi"
+                  data-bs-toggle="collapse"
+                  aria-expanded="false"
+                  ><i class="fa-solid fa-list-check"></i>
+                  Create BeaconTag
+                </a>
+                <ul
+                  id="multi"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <form id="beacontag-form">
+                      <div>
+                        <label for="px">Px:</label>
+                        <input type="number" step="any" id="px" name="px" required />
+                      </div>
+                      <div>
+                        <label for="py">Py:</label>
+                        <input type="number" step="any" id="py" name="py" required />
+                      </div>
+                      <button type="submit">Save Beacon Tag</button>
+                    </form>
+                  </li>
+                </ul> 
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#"
+                  class="sidebar-link collapsed"
+                  data-bs-target="#posts"
+                  data-bs-toggle="collapse"
+                  aria-expanded="false"
+                  ><i class="fa-solid fa-signs-post"></i>
+                  Path of BeaconTag
+                </a>
+                <ul
+                  id="posts"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <form id="path-form">
+                      <div>
+                        <label for="start-beacon">BeaconTag Start:</label>
+                        <input
+                          type="text"
+                          id="start-beacon"
+                          
+                        />
+                      </div>
+
+                      <div>
+                        <label for="end-beacon">BeaconTag End:</label>
+                        <input
+                          type="text"
+                          id="end-beacon"
+                        />
+                      </div>
+                      <div>
+                        <button type="submit" style="border-radius: 5px">
+                          Find The Way
+                        </button>
+                      </div>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="#"
+                  class="sidebar-link collapsed"
+                  data-bs-target="#auth"
+                  data-bs-toggle="collapse"
+                  aria-expanded="false"
+                  ><i class="fa-solid fa-trash"></i>
+                  Delete Data
+                </a>
+                <ul
+                  id="auth"
+                  class="sidebar-dropdown list-unstyled collapse"
+                  data-bs-parent="#sidebar"
+                >
+                  <li class="sidebar-item">
+                    <form id="delete-form">
+                      <label for="delete-beacon-name" style="margin-bottom: 5px"
+                        >Enter iBeacon name to delete:</label
+                      >
+                      <input
+                        type="text"
+                        id="delete-beacon-name"
+                      />
+                      <button type="submit" style="border-radius: 5px">
+                        Xóa Beacon
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              
+          </div>
+        </aside>
+        <div class="main">
+          <nav class="navbar navbar-expand px-3 border-bottom">
+            <button class="btn" id="sidebar-toggle" type="button">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse navbar">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                    <img
+                      src="image/profile.jpg"
+                      class="avatar img-fluid rounded"
+                      alt=""
+                    />
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+                    <a href="#" class="dropdown-item">Profile</a>
+                    <a href="#" class="dropdown-item">Setting</a>
+                    <a href="#" class="dropdown-item" id="logout">Logout</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <main class="content px-3 py-2">
+            <div class="bg-container">
+              <img class="bg" src="image/Map1.png" alt="Ảnh nền" />
+              <div class="dot-container">
+              </div>
+              <!-- <div class="dot"><span class="dot-label">Label</span></div> -->
+              <svg
+                id="shortest-path"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%"
+              >
+                <!-- Đường đi ngắn nhất sẽ được vẽ ở đây -->
+              </svg>
+            </div>
+          </main>
+          <a href="#" class="theme-toggle">
+            <i class="fa-regular fa-moon"></i>
+            <i class="fa-regular fa-sun"></i>
+          </a>
+          <footer class="footer">
+            <div class="container-fluid">
+              <div class="row text-muted">
+                <div class="col-6 text-start">
+                  <p class="mb-0">
+                    <a href="#" class="text-muted">
+                      <strong>Ban-Anh</strong>
+                    </a>
+                  </p>
+                </div>
+                <div class="col-6 text-end">
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <a href="#" class="text-muted">Contact</a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="#" class="text-muted">About Us</a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="#" class="text-muted">Terms</a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="#" class="text-muted">Booking</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="js/script.js"></script>
+    <script src="js/script1.js"></script>
+  </body>
+</html>
